@@ -27,7 +27,7 @@ We welcome contributions!
 3. Make your changes
 4. Submit a pull request
 
-Please follow any formatting or data submission guidelines outlined in the [CONTRIBUTING.md](CONTRIBUTING.md) (if available).
+For more information about contributing see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📄 License
 
