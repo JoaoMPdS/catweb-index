@@ -7,7 +7,7 @@ export default function Home() {
 	return (
 		<main className="w-full h-full items-center flex flex-col gap-y-3 justify-center">
 			<h1 className="text-5xl font-bold select-none">CatWeb Index</h1>
-			<Link href={process.env.NEXT_PUBLIC_GITHUB_REPO!}>
+			<Link href="https://github.com/JoaoMPdS/catweb-index">
 				<Button>
 					<FaGithub />
 					Contribute on Github

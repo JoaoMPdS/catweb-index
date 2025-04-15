@@ -8,7 +8,7 @@ export function useSiteData(site: string) {
    const [error, setError] = useState<number>();
 
    const load = useCallback(() => {
-      axios(`${process.env.NEXT_PUBLIC_GITHUB_RAW}/sites/${site}.json`).then(data => {   
+      axios(`https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/sites/${site}.json`).then(data => {   
          setError(0);
          setStatus("loaded");
          setData(data.data as Schema);
