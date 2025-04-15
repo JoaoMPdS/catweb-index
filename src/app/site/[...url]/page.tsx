@@ -5,6 +5,8 @@ import { parseUrl } from "@/lib/url";
 import { notFound, redirect, useParams } from "next/navigation";
 import { AiOutlineLoading, AiOutlineExclamationCircle } from "react-icons/ai";
 
+export const runtime = 'edge';
+
 export default function SitePage() {
    const url = (useParams().url as string[]).join("/");
 
