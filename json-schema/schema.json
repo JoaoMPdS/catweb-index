@@ -4,7 +4,7 @@
     "properties": {
         "subdomains": {
             "type": "object",
-            "items": {
+            "additionalProperties": {
                 "type": "array",
                 "items": {
                     "type": "object",
