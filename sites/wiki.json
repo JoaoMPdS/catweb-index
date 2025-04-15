@@ -1,17 +1,21 @@
 {
-    "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/json-schema/schema.json",
+    "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/json-schema/schema.json?tee=1",
     
-    "routes": [
-        {
-            "path": "/",
-            "title": "w",
-            "description": ""
-        }
-    ],
+    "subdomains": {
+        "beta": [
+            {
+                "path": "/",
+                "title": "CatWeb Wiki",
+                "description": "The most trustable source for information about CatWeb.",
+                "iconId": 128498252882357
+            }
+        ]
+    },
 
     "createdAt": "22/02/2022",
     "visits": {
         "current": 1100,
         "updatedAt": "15/04/2025"
-    }
+    },
+    "creatorId": 151403188
 }

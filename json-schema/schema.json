@@ -46,7 +46,7 @@
             ]
         },
         "creatorId": {
-            "type": "string"
+            "type": "integer"
         },
         "createdAt": {
             "type": "string",
