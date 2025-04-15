@@ -12,16 +12,26 @@ Thank you for your interest in contributing to the Catweb Index! This guide will
 
    ```json
    {
-       "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/json-schema/schema.json",
-       
-       "routes": [
-           {
-               "path": "/",
-               "title": "Home",
-               "description": "Welcome to MySite",
-               "iconId": 1
-           }
-       ],
+       "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/main/json-schema/schema.json",
+
+       "subdomains": {
+           "": [
+               {
+                   "path": "/blog",
+                   "title": "Blog",
+                   "description": "MySite Blog",
+                   "iconId": 2
+               }
+           ],
+           "test": [
+               {
+                   "path": "/",
+                   "title": "Test Root",
+                   "description": "This is the root of test.MySite.rbx",
+                   "iconId": 23132123123213
+               }
+           ]
+       },
 
        "createdAt": "15/04/2025",
        "visits": {
@@ -33,3 +43,5 @@ Thank you for your interest in contributing to the Catweb Index! This guide will
    ```
 
 >**_NOTE:_**  Additionally, when you define a `path`, it will match any route that begins with it—such as `/test/something` or `/test/another-page`. This makes it easy to group related routes under a common base path. However, more specific routes will take precedence and can override these broader matches.
+
+>**_NOTE:_** All dates must be in the DD/MM/YYYY format.
