@@ -1,6 +1,6 @@
 # CatWeb Unofficial Data Tracker
 
-An unofficial, community-maintained repository that tracks data related to the websites associated with the Roblox game [https://www.roblox.com/games/16855862021](**CatWeb**).
+An unofficial, community-maintained repository that tracks data related to the websites associated with the Roblox game [**CatWeb**](https://www.roblox.com/games/16855862021).
 
 ---
 
