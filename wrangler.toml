@@ -1,4 +1,4 @@
 name = "catweb-index"
-compatibility_date = "2025-04-15"
-compatibility_flags = ["nodejs_compat_v2"]
+compatibility_date = "2025-04-02"
+compatibility_flags = ["nodejs"]
 pages_build_output_dir = ".vercel/output/static"
