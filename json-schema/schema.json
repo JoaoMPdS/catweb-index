@@ -51,12 +51,17 @@
         "createdAt": {
             "type": "string",
             "pattern": "^\\d{2}/\\d{2}/\\d{4}$"
+        },
+        "website_type": {
+            "type": "string",
+            "enum": ["gaming", "educational", "scripting", "tools", "domain_selling", "empty", "social", "news", "misc"]
         }
     },
     "required": [
         "subdomains",
         "visits",
         "creatorId",
-        "createdAt"
+        "createdAt",
+        "website_type"
     ]
 }

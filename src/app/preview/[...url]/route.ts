@@ -2,8 +2,21 @@ import { getPathData, parseUrl } from "@/lib/url";
 import axios from "axios";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import { Schema } from "../../../../json-schema/schema";
 
 export const runtime = 'edge';
+
+const websiteTypeColors = {
+   "gaming": "#1E90FF",
+   "educational": "#00BFFF",
+   "scripting": "#00FF9F",
+   "tools": "#708090",
+   "domain_selling": "#7851A9",
+   "empty": "#CCCCCC",
+   "social": "#FF5E9D",
+   "news": "#DC143C",
+   "misc": "#FF7F50"
+};
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ url: string[] }> }) {
    const userAgent = req.headers.get("user-agent") || '';
@@ -36,8 +49,11 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ url:
       imageURL = undefined;
    }
 
+   const siteColor: string = websiteTypeColors[((data.data as Schema | undefined)?.website_type as keyof typeof websiteTypeColors) || "empty"];
+
    return new NextResponse(`
       <html lang="en"><head>
+         <meta name="theme-color" content="${siteColor}">
          <meta property="og:title" content="${pathData.title}" />
          ${imageURL ? `<meta property="og:image" content="${imageURL}" />` : ""}
          <meta property="og:description" content="${pathData.description || "No information is available for this page."}" />

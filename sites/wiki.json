@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/json-schema/schema.json?tee=1",
+    "$schema": "https://raw.githubusercontent.com/JoaoMPdS/catweb-index/refs/heads/main/json-schema/schema.json",
     
     "subdomains": {
         "beta": [
@@ -25,5 +25,6 @@
         "current": 1100,
         "updatedAt": "15/04/2025"
     },
-    "creatorId": 151403188
+    "creatorId": 151403188,
+    "website_type": "educational"
 }

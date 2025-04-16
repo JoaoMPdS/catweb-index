@@ -13,4 +13,5 @@ export interface Schema {
    };
    creatorId: number;
    createdAt: string;
+   website_type: string,
 }

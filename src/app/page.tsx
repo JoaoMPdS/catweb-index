@@ -10,7 +10,7 @@ export default function Home() {
 			<Link href="https://github.com/JoaoMPdS/catweb-index">
 				<Button>
 					<FaGithub />
-					Contribute on Github
+					Contribute on GitHub
 				</Button>
 			</Link>
 		</main>
