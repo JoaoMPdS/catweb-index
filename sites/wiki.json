@@ -9,6 +9,14 @@
                 "description": "The most trustable source for information about CatWeb.",
                 "iconId": 128498252882357
             }
+        ],
+        "": [
+            {
+                "path": "/",
+                "title": "CatWeb Wiki",
+                "description": "The most trustable source for information about CatWeb.",
+                "iconId": 128498252882357
+            }
         ]
     },
 
