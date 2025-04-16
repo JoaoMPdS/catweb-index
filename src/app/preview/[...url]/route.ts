@@ -26,11 +26,21 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ url:
    const pathData = getPathData(parsedUrl, data.data);
    if (!pathData) return notFound();
 
+   let imageURL: string | undefined;
+   try {
+      if (pathData.iconId) {
+         const imageData = (await axios(`https://thumbnails.roblox.com/v1/assets?assetIds=${pathData.iconId}&format=Png&size=420x420`)).data;
+         imageURL = imageData.data[0].imageUrl;
+      }
+   } catch {
+      imageURL = undefined;
+   }
+
    return new NextResponse(`
       <html lang="en"><head>
          <meta property="og:title" content="${pathData.title}" />
-         ${pathData?.iconId ? `<meta property="og:image" content="https://www.roblox.com/asset-thumbnail/image?assetId=${pathData?.iconId}&width=420&height=420&format=png" />` : ""}
-         ${pathData?.description ? `<meta property="og:description" content="${pathData.description}" />` : ""}
+         ${imageURL ? `<meta property="og:image" content="https://www.roblox.com/asset-thumbnail/image?assetId=${pathData?.iconId}&width=420&height=420&format=png" />` : ""}
+         ${pathData?.description ? `<meta property="og:description" content="${imageURL}" />` : ""}
          <meta property="og:url" content="https://roblox.com/games/start?launchData=${parsedUrl.resolvedUrl}&placeId=16855862021" />
          <meta property="og:type" content="website" />         
       </head></html>

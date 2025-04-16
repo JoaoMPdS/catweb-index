@@ -27,7 +27,8 @@ export function parseUrl(url: string): ParsedUrl {
         hostname = domainSegments[0];
     }
 
-    const resolvedUrl = `${subdomain ? subdomain + '.' : ''}${hostname}.rbx${path}`;
+    let resolvedUrl = `${subdomain ? subdomain + '.' : ''}${hostname}.rbx${path}`;
+    if (resolvedUrl.endsWith("/")) resolvedUrl = resolvedUrl.slice(0, -1)
 
     return { path, hostname, subdomain, resolvedUrl };
 }
