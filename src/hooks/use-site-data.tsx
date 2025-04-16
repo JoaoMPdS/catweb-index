@@ -13,9 +13,15 @@ export function useSiteData(site: string) {
          setStatus("loaded");
          setData(data.data as Schema);
       }).catch(error => {
-         setError(error.response.status || 500);
-         setStatus("error");
-         setData(null);
+         if (error.response.status === 404) {
+            setError(0);
+            setStatus("loaded");
+            setData(null);
+         } else {
+            setError(error.response.status || 500);
+            setStatus("error");
+            setData(null);
+         }
       });
    }, [site]);
 

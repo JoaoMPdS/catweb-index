@@ -33,7 +33,16 @@ export function parseUrl(url: string): ParsedUrl {
     return { path, hostname, subdomain, resolvedUrl };
 }
 
-export function getPathData(url: ParsedUrl, data: Schema) {
+export function getPathData(url: ParsedUrl, data?: Schema): Schema["subdomains"][""][0] | null {
+    if (!data) {
+        return {
+            title: `${url.hostname}.rbx`,
+            description: "No information is available for this page.",
+            iconId: 96094941435895,
+            path: "/",
+        }
+    }
+
     const subdomainData = data.subdomains[url.subdomain || ""] || [];
     const matchingPaths = subdomainData.filter(entry => url.path.startsWith(entry.path));
     
