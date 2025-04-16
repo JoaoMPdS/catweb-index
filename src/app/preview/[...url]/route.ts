@@ -39,8 +39,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ url:
    return new NextResponse(`
       <html lang="en"><head>
          <meta property="og:title" content="${pathData.title}" />
-         ${imageURL ? `<meta property="og:image" content="https://www.roblox.com/asset-thumbnail/image?assetId=${pathData?.iconId}&width=420&height=420&format=png" />` : ""}
-         ${pathData?.description ? `<meta property="og:description" content="${imageURL}" />` : ""}
+         ${imageURL ? `<meta property="og:image" content="https://www.roblox.com/asset-thumbnail/image?assetId=${imageURL}&width=420&height=420&format=png" />` : ""}
+         ${pathData?.description ? `<meta property="og:description" content="${pathData.description}" />` : ""}
          <meta property="og:url" content="https://roblox.com/games/start?launchData=${parsedUrl.resolvedUrl}&placeId=16855862021" />
          <meta property="og:type" content="website" />         
       </head></html>

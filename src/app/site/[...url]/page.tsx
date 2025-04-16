@@ -12,7 +12,6 @@ export default function SitePage() {
 
    const { hostname, resolvedUrl } = parseUrl(url as string);
    const { error, status } = useSiteData(hostname);
-
    if (error === 404) return notFound();
 
    if (status === "loaded") {
