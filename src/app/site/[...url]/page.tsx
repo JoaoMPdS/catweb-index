@@ -104,7 +104,7 @@ export default function SitePage() {
                   </div>
                </Card>
                
-               <div className="flex flex-col md:flex-row gap-x-2">
+               <div className="flex flex-col md:flex-row gap-x-2 gap-y-[12px]">
                   <Tooltip message={data?.visits ? `Updated ${formatDistanceToNow(dateFromString(data.visits.updatedAt), { addSuffix: true })}.` : "There is no information to display about this site."} side="bottom">
                      <Card className="p-4 w-full flex flex-row justify-start items-center gap-x-3 px-5">
                         <FaChartColumn className="text-5xl" />
