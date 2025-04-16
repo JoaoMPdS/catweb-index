@@ -38,7 +38,8 @@ Thank you for your interest in contributing to the Catweb Index! This guide will
            "current": 0,
            "updatedAt": "15/04/2025"
        },
-       "creatorId": "your-unique-id"
+       "creatorId": "your-unique-id",
+       "website_type": "misc"
    }
    ```
 

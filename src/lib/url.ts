@@ -34,13 +34,14 @@ export function parseUrl(url: string): ParsedUrl {
 }
 
 export function getPathData(url: ParsedUrl, data?: Schema): Schema["subdomains"][""][0] | null {
+    const defaultData = {
+        title: `${url.hostname}.rbx`,
+        description: "No information is available for this page.",
+        iconId: 96094941435895,
+        path: "/",
+    };
     if (!data) {
-        return {
-            title: `${url.hostname}.rbx`,
-            description: "No information is available for this page.",
-            iconId: 96094941435895,
-            path: "/",
-        }
+        return defaultData;
     }
 
     const subdomainData = data.subdomains[url.subdomain || ""] || [];
@@ -48,5 +49,5 @@ export function getPathData(url: ParsedUrl, data?: Schema): Schema["subdomains"]
     
     matchingPaths.sort((a, b) => b.path.length - a.path.length);
 
-    return matchingPaths.length > 0 ? matchingPaths[0] : null;
+    return matchingPaths[0] || defaultData;
 }
