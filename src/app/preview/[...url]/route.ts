@@ -21,11 +21,14 @@ const websiteTypeColors = {
 export async function GET(req: NextRequest, { params }: { params: Promise<{ url: string[] }> }) {
    const userAgent = req.headers.get("user-agent") || '';
    const isDiscord = userAgent.toLowerCase().includes("discordbot");
+   const isWhatsApp = userAgent.toLowerCase().includes('whatsapp')
    
+   const isBot = isDiscord || isWhatsApp;
+
    const url = (await params).url.join("/");
    const parsedUrl = parseUrl(url as string);
 
-   if (!isDiscord) {
+   if (!isBot) {
       return redirect(`/site/${parsedUrl.resolvedUrl}#redirect`);
    }
 
