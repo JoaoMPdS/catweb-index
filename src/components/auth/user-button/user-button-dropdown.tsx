@@ -5,7 +5,6 @@ import {
    DropdownMenuContent,
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useSession } from "next-auth/react";
 import { IoLogOut } from "react-icons/io5";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -22,7 +21,6 @@ export default function UserButtonDropdown({
    children,
    className
 } : UserButtonDropdownProps) {
-   const { data } = useSession();
    const [open, setOpen] = useState<boolean>(false);
 
    return (
