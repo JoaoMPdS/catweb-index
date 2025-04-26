@@ -1,46 +1,67 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { useSiteData } from "@/hooks/use-site-data";
+import { SiteData, useSiteData } from "@/hooks/use-site-data";
 import { getPathData, parseUrl } from "@/lib/url";
 import { notFound, redirect, useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AiOutlineLoading, AiOutlineExclamationCircle } from "react-icons/ai";
 import SiteThumbnail from "./_components/site-thumbnail";
 import UserHeadshot from "./_components/user-headshot";
 import { Button } from "@/components/ui/button";
 import UserName from "./_components/user-name";
 import Link from "next/link";
-import { FaArrowUpRightFromSquare, FaPaperclip, FaCalendar, FaGithub, FaChartColumn, FaCookie } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaPaperclip, FaCalendar, FaGithub, FaChartColumn, FaCookie, FaThumbsUp, FaThumbsDown, FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa6";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { format, formatDistanceToNow } from "date-fns";
 import Tooltip from "@/components/tooltip";
 import { dateFromString } from "@/lib/date";
 import VisitsCounter from "./_components/vists-counter";
+import { BsStars } from "react-icons/bs";
+import { dislike, getVote, like } from "@/actions/ratings";
+import { voteTypeEnum } from "@/db";
+import RateCounter from "./_components/rate-counter";
+import { useAppPromotionalModal } from "@/hooks/use-auth-promotional-modal";
 
 export const runtime =  'edge';
 
 export default function SitePage() {
+   const [, setAuthPromoModalOpen] = useAppPromotionalModal();
+   const [isLiking, setIsLiking] = useState<typeof voteTypeEnum.enumValues[number] | null | undefined>(undefined);
+   const [disabled, startTransition] = useTransition();
    const url = (useParams()?.url as string[]).join("/");
 
    const { hostname, resolvedUrl } = parseUrl(url as string);
-   const { error, status, data } = useSiteData(hostname);
-   
+   const { error, status, data: siteData, update } = useSiteData(hostname);
+   const rating = siteData?.rating ?? null;
+   const data: SiteData | null = Object.entries(siteData).length <= 1 ? null : siteData as SiteData;
    const catwebLaunchURL = `https://roblox.com/games/start?launchData=${resolvedUrl}&placeId=16855862021`;
-
+   
    useEffect(() => {
       const isRedirect = window.location.hash.toLocaleLowerCase() === "#redirect";
-
+      
       if (status === "loaded" && isRedirect) {
          return redirect(catwebLaunchURL);
       }
       
    }, [status, resolvedUrl, catwebLaunchURL]);
    
+   useEffect(() => {
+      getVote(hostname).then(data => {
+         if (data.error === "You are not authenticated") return setIsLiking(null); // allow unauthenticated users to press the buttons
+         if (data.error) {
+            toast.error("Something went wrong while loading your rating on this site.");
+            console.error(data.error);
+            return;
+         }
+         setIsLiking(data.success ?? null);
+      });
+   }, [hostname]);
+
    if (error === 404) return notFound();
 
-   let pathData
+   let pathData;
    if (data) {
       pathData = getPathData(parseUrl(url as string), data);
    }
@@ -50,8 +71,35 @@ export default function SitePage() {
       toast.success("Successfully copied the share URL to the clipboard.");
    };
 
-   const creationDate = data && data.createdAt && dateFromString(data?.createdAt);
+   const onLike = () => {
+      startTransition(async () => {
+         const res = await like(hostname);
+         if (res.error === "You are not authenticated") return setAuthPromoModalOpen("voting");
+         if (res.error || !res.success) {
+            toast.error(res.error || "Something went wrong!")
+            return;
+         }
 
+         setIsLiking(res.success === "added" ? "like" : null);
+         await update();
+      });
+   };
+   const onDislike = () => {
+      startTransition(async () => {
+         const res = await dislike(hostname);
+         if (res.error === "You are not authenticated") return setAuthPromoModalOpen("voting");
+         if (res.error || !res.success) {
+            toast.error(res.error || "Something went wrong!")
+            return;
+         }
+
+         setIsLiking(res.success === "added" ? "dislike" : null);
+         await update();
+      });
+   }
+
+   const creationDate = data && data.createdAt && dateFromString(data?.createdAt);
+   
    return (
       <div className="w-full h-full flex flex-col gap-y-1 justify-center items-center">
          {status === "loading" ? (
@@ -127,6 +175,34 @@ export default function SitePage() {
                   </Tooltip>
                </div>
 
+               <Tooltip message="What does the community think about this site?" side="bottom">
+                  <Card className="p-4 w-full flex flex-row justify-between items-center px-5">
+                     <div className="flex flex-row gap-x-2 justify-start">
+                        <BsStars className="text-5xl" />
+                        <div className="flex justify-start items-start flex-col">
+                           <p className="font-semibold truncate">Satisfaction Rate:</p>
+                           <RateCounter rate={rating} />
+                        </div>
+                     </div>
+                     <div className="flex flex-row gap-x-1">
+                        <Button disabled={isLiking === undefined || disabled} onClick={() => onLike()} className="py-6" variant="ghost">
+                           {isLiking === "like" ? (
+                              <FaThumbsUp className="size-6" />
+                           ) : (
+                              <FaRegThumbsUp className="size-6" />
+                           )}
+                        </Button>
+
+                        <Button disabled={isLiking === undefined || disabled} onClick={() => onDislike()} className="py-6" variant="ghost">
+                           {isLiking === "dislike" ? (
+                              <FaThumbsDown className="size-6" />
+                           ) : (
+                              <FaRegThumbsDown className="size-6" />
+                           )}
+                        </Button>
+                     </div>
+                  </Card>
+               </Tooltip>
 
                <Card className="p-4 text-left flex gap-y-1">
                   <Label className="uppercase text-muted-foreground font-bold">
