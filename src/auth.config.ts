@@ -7,8 +7,11 @@ export default {
       Roblox({
          profile(profile) {
             return {
-               id: String(profile.id),
-            }
+               id: String(profile.sub ?? profile.id),
+               name: profile.name ?? null,
+               email: profile.email ?? null,
+               robloxUserId: Number(profile.sub ?? profile.id), 
+            };
          }
       }),
    ],
