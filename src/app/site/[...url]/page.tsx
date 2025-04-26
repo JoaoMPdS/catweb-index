@@ -60,7 +60,7 @@ export default function SitePage() {
    }, [hostname]);
 
    if (error === 404) return notFound();
-
+   
    let pathData;
    if (data) {
       pathData = getPathData(parseUrl(url as string), data);

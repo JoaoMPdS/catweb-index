@@ -10,7 +10,7 @@ export default function RateCounter({
 
    useEffect(() => {
       if (!ref.current) return;
-      if (!rate) {
+      if (rate === null) {
          ref.current.textContent = "---"
          return;
       }
