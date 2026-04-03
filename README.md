@@ -4,21 +4,21 @@ An unofficial, community-maintained repository that tracks data related to the w
 
 ---
 
-## 📌 About
+## About
 
 This repository aims to collect and organize information from various CatWeb websites through user contributions. It is not affiliated with the official CatWeb development team or Roblox.
 
-## 🧩 Features
+## Features
 
 - Aggregates data from multiple CatWeb-related sources
 - Open to contributions and data updates from the community
 - Transparent and version-controlled data tracking
 
-## 💡 Disclaimer
+## Disclaimer
 
 This is an **unofficial** project. All data is provided by the community and may not reflect the most up-to-date or accurate information available from official sources.
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions!
 
